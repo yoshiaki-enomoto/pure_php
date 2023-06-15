@@ -1,7 +1,10 @@
 <?php
 class Employee
 {
-  public $name;
+  // public $name;
+  private $name;
+  private $type;
+  public $salary = 20;
   // public $state = "働いている";
   private $state = "働いている";
   // public static $company = "ポニーキャニオン";
@@ -10,6 +13,18 @@ class Employee
   const PARTTIME = "0X01";  //アルバイト
   const REGULAR  = "0X02";  //正社員
   const CONTRACT = "0X03";  //契約社員
+
+  public function __construct(string $name, string $type)
+  {
+    $this->name = $name;
+    $this->type = $type;
+
+  }
+
+  public function getName()
+  {
+    return $this->name;
+  }
 
   public static function getCompany()
   {
@@ -35,18 +50,60 @@ class Employee
   {
     echo '書類整理' . '<br>';
   }
+
+  public final function getSalary()
+  {
+    return $this->salary;
+  }
+}
+?>
+
+<?php
+
+class Programmer extends Employee
+{
+
+  public function __toString()
+  {
+    return "滋賀で<br>" . $this->work();
+  }
+
+  public function work()
+  {
+    echo 'プログラムを書いてます' . '<br>';
+  }
+
+  // Fatal error: Cannot override final method Employee::getSalary() になる
+  // public function getSalary()
+  // {
+  //   return $this->salary * 20;
+  // }
+
 }
 
-$yamada = new Employee();
-$yamada->name = "山田";
+$nishikawa = new Programmer("西川", Programmer::REGULAR);
+echo $nishikawa;
+echo $nishikawa->getName() . "<br>";
+$nishikawa->work();
+// $nishikawa->salary();
+
+echo "<br>";
+echo "【yamadaのターン】<br>";
+
+// $yamada = new Employee();
+// $yamada->name = "山田";
+$yamada = new Employee("山田", Employee::REGULAR);
 // echo $yamada->name .  "さんは" . $yamada->state . '<br>';
-echo $yamada->name .  "さんは" . $yamada->getState() . '<br>';
+// echo $yamada->name .  "さんは" . $yamada->getState() . '<br>';
+echo $yamada->getName() .  "さんは" . $yamada->getState() . '<br>';
 $yamada->setState("寝ている");
-echo $yamada->name .  "さんは" . $yamada->getState() . '<br>';
+// echo $yamada->name .  "さんは" . $yamada->getState() . '<br>';
+echo $yamada->getName() .  "さんは" . $yamada->getState() . '<br>';
 $yamada->work();
 // echo Employee::$company;
 echo Employee::getCompany() . "<br>";
 // $yamada->setCompany('エイベックス');
 Employee::setCompany('エイベックス');
 echo Employee::getCompany() . "<br>";
-echo Employee::REGULAR;
+// echo Employee::REGULAR;
+echo $yamada->getSalary();
