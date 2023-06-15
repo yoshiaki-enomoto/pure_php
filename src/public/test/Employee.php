@@ -16,6 +16,7 @@ class Employee
 
   public function __construct(string $name, string $type)
   {
+    var_dump('this', $this);
     $this->name = $name;
     $this->type = $type;
 
@@ -56,36 +57,7 @@ class Employee
     return $this->salary;
   }
 }
-?>
 
-<?php
-
-class Programmer extends Employee
-{
-
-  public function __toString()
-  {
-    return "滋賀で<br>" . $this->work();
-  }
-
-  public function work()
-  {
-    echo 'プログラムを書いてます' . '<br>';
-  }
-
-  // Fatal error: Cannot override final method Employee::getSalary() になる
-  // public function getSalary()
-  // {
-  //   return $this->salary * 20;
-  // }
-
-}
-
-$nishikawa = new Programmer("西川", Programmer::REGULAR);
-echo $nishikawa;
-echo $nishikawa->getName() . "<br>";
-$nishikawa->work();
-// $nishikawa->salary();
 
 echo "<br>";
 echo "【yamadaのターン】<br>";
